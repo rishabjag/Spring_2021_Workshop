@@ -1,5 +1,6 @@
 ---
 title: "Spring 2021 Workshop"
+author: "Rishab Jagetia"
 output:
   learnr::tutorial:
     progressive: no
@@ -285,11 +286,28 @@ lets you view the output of your code.
 
 ## Data Exploration
 
+#Notes
+#to create a pipeline, do this: %>%
+ex.
+```{r, eval=FALSE}
+diamonds %>%
+  select(clarity)
+```
+```{r, eval = FALSE}
+#booleans
+diamonds %>%
+  mutate(more_x = x>y)
+#filter
+diamonds %>%
+  filter(cut == "Fair" & color =="G")
+#
+```
+
 Let's start to examine the data a little more closely. 
 To find out more about this dataset, you could use some help.  Try typing the name of the dataset with a '?' in front of it.
 
 ```{r help-diamonds, exercise=TRUE}
-
+?diamonds
 ```
 
 You should see the documentation on the dataset in the Help window.  Try out the other tabs there briefly.  
@@ -379,7 +397,8 @@ of the price of diamonds by their weight measured in carats with the command
 ```{r plot-price-vs-carat, echo=TRUE}
 ggplot(data = diamonds, aes(x = carat, y = price, color = cut)) +
   geom_point() +
-  theme_classic() +
+  geom_smooth()
+  theme_minimal() +
   labs(title = "Carat vs. Price",
        subtitle = "RStudio Spring Workshop",
        caption = "Data Source: Diamonds Dataset",
@@ -435,9 +454,19 @@ toggle between plots and help files using the tabs at the top of that panel.
 **Exercise:** Now play with mutate and piping and create a plot of interest to you. What is the difference between calling `fill = cut` and `color = cut`? 
 
 ```{r plot-of-something-interesting, exercise=TRUE}
-ggplot(data = ____, aes(x = ____, y = ____)) +
-  ____
-
+ggplot(data = diamonds, aes(x = carat, y = price, color = cut)) +
+  geom_point() +
+  theme_classic()+
+  labs(title = 'Carat vs Price',
+       subtitle = 'RStudio Spring Workshop',
+       caption = 'Diamonds Dataset',
+       x = "Carat (0.2-5.01)",
+       y = "Price ($)",
+       fill = "Cut")
+```
+```{r plot-of-something-interesting2, exercise=TRUE}
+ggplot(data = diamonds, aes(x = color, fill = color)) +
+  geom_bar()
 ```
 
 
